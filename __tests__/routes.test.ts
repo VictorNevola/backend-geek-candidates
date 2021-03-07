@@ -94,12 +94,12 @@ describe('Teste para a rota de filtrar todos os candidatos de acordo com os filt
 
 describe('Teste para a rota de capturar todas as tecnologias e experiencias disponiveis', () => {
 
-    test('Faz um get para a rota /api/filtersAvailables e verifica se retorna um array de objetos e verificar se existe as propriedade technologics e experiences', async () => {
+    test('Faz um get para a rota /api/filtersAvailables e verifica se retorna um array de objetos e verificar se existe as propriedade technologies e experiences', async () => {
         const response = await request(server).get('/api/filtersAvailables');
         expect(response.status).toEqual(200);
 
         expect(response.body).toEqual(expect.objectContaining({
-            'technologics': expect.arrayContaining([
+            'technologies': expect.arrayContaining([
                 expect.objectContaining({
                     "count": expect.any(Number),
                     "name": expect.any(String)

@@ -50,7 +50,7 @@ const filtersAvailables = async (request: Request, response: Response) => {
     });
     
     const result = {
-        technologics: filtersTechnologies,
+        technologies: filtersTechnologies,
         experiences: filtersExperiences
     };
 
