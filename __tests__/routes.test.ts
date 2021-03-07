@@ -56,19 +56,23 @@ describe('Teste para a rota de listar todos os candidatos e trabalhos', () => {
 describe('Teste para a rota de filtrar todos os candidatos de acordo com os filtros contidos no body', () => {
 
     test('Faz um post para rota /api/filterCandidates e verificar se retona um array com 5 objetos', async () => {
-        const response = await request(server).post('/api/filterCandidates').send({
-            "filtersTecnologics": [{ "name": "React", "is_main_tech": true }, { "name": "Node.js", "is_main_tech": false }],
-            "filtersExperienceYears": ["3-4 years", "2-3 years"]
-        });
+        const response = await request(server).post('/api/filterCandidates').send(
+            {
+                "filtersTechnologies": [{"name": "React", "is_main_tech": true}, {"name": "Node.js", "is_main_tech": false}],
+                "filtersExperienceYears": ["3-4 years", "2-3 years"]
+            }
+        );
         expect(response.status).toEqual(200);
         expect(response.body).toHaveLength(5);
     });
 
     test('Verifica se retorna array contendo as propriedade do candidato', async () => {
-        const response = await request(server).post('/api/filterCandidates').send({
-            "filtersTecnologics": [{ "name": "React", "is_main_tech": true }, { "name": "Node.js", "is_main_tech": false }],
-            "filtersExperienceYears": ["3-4 years", "2-3 years"]
-        });
+        const response = await request(server).post('/api/filterCandidates').send(
+            {
+                "filtersTechnologies": [{"name": "React", "is_main_tech": true}, {"name": "Node.js", "is_main_tech": false}],
+                "filtersExperienceYears": ["3-4 years", "2-3 years"]
+            }
+        );
         expect(response.status).toEqual(200);
 
         expect(response.body).toEqual(
@@ -84,6 +88,30 @@ describe('Teste para a rota de filtrar todos os candidatos de acordo com os filt
                 ])
             })])
         );
+    });
+
+});
+
+describe('Teste para a rota de capturar todas as tecnologias e experiencias disponiveis', () => {
+
+    test('Faz um get para a rota /api/filtersAvailables e verifica se retorna um array de objetos e verificar se existe as propriedade technologics e experiences', async () => {
+        const response = await request(server).get('/api/filtersAvailables');
+        expect(response.status).toEqual(200);
+
+        expect(response.body).toEqual(expect.objectContaining({
+            'technologics': expect.arrayContaining([
+                expect.objectContaining({
+                    "count": expect.any(Number),
+                    "name": expect.any(String)
+                })
+            ]),
+            'experiences': expect.arrayContaining([
+                expect.objectContaining({
+                    "count": expect.any(Number),
+                    "name": expect.any(String)
+                })
+            ])
+        }));
     });
 
 });
