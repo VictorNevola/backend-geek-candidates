@@ -6,17 +6,18 @@ const filterCandidates = async (request: Request, response: Response) => {
     const allCandidatesAndJobs: allCandidatesAndJobs = await fetch('https://geekhunter-recruiting.s3.amazonaws.com/code_challenge.json').then(result => result.json());
     const { candidates } = allCandidatesAndJobs;
 
-    const filtersTechnologies: { name: string, is_main_tech: boolean }[] = request.body.filtersTechnologies || [];
+    const filtersTechnologies: string[] = request.body.filtersTechnologies || [];
     const filtersExperienceYears: string[] = request.body.filtersExperienceYears || [];
 
-    if (filtersTechnologies.length === 0 || filtersExperienceYears.length === 0) return response.status(406).send('Filtros não informados');
+
+    if (filtersTechnologies.length === 0) return response.status(406).send('Filtros não informados');
 
     if (candidates) {
         //Filtered by technologies
         const candidatesWithTheTechnologiesOfFilterSelected = candidates.filter(candidate => {
 
             const candidateHasTheTechnology = candidate.technologies.some(technology => {
-                return filtersTechnologies.some(filtersTechnologies => filtersTechnologies.name === technology.name);
+                return filtersTechnologies.some(filtersTechnologies => filtersTechnologies === technology.name);
             });
 
             if (candidateHasTheTechnology && candidateHasTheTechnology !== null && candidate !== null) return candidate;
@@ -36,7 +37,7 @@ const filterCandidates = async (request: Request, response: Response) => {
         const filterForMainTechnologic = candidateFilteredForExperienceTime.filter(candidate => {
 
             const isMainTech = candidate.technologies.some(technologic => {
-                return filtersTechnologies.some(filtersTechnologies => filtersTechnologies.name == technologic.name && filtersTechnologies.is_main_tech && technologic.is_main_tech);
+                return filtersTechnologies.some(filtersTechnologies => filtersTechnologies == technologic.name && technologic.is_main_tech);
             });
 
             if (isMainTech) return candidate
@@ -59,6 +60,8 @@ const filterCandidates = async (request: Request, response: Response) => {
         [...filterForMainTechnologic, ...candidateFilteredForExperienceTime].forEach(candidate => {
             filterFinish.add(candidate)
         });
+
+        console.log('filterFinish', filterFinish)
 
         return response.status(200).send( Array.from(filterFinish.values()).slice(0, 5) );
 
