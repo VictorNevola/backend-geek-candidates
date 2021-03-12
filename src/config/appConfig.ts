@@ -1,7 +1,9 @@
 import express, { urlencoded, json } from 'express';
-import router from '../Routes';
+import router from '../routes';
 import cors from 'cors';
+import mongoConnect from './dbConect';
 
+mongoConnect();
 const app = express();
 app.use(cors());
 app.use(urlencoded({extended: false}));

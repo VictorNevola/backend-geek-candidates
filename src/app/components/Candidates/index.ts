@@ -1,11 +1,11 @@
-import fetch from "node-fetch";
 import { Request, Response } from 'express';
-import { allCandidatesAndJobs } from '../../../typings/general';
+import Candidates from '../../repositories/Candidates';
 
+const candidatesMethodsInBd = new Candidates();
 const listAllCandidates = async (request: Request, response: Response) => {
-    const allCandidatesAndJobs: [allCandidatesAndJobs] = await fetch('https://geekhunter-recruiting.s3.amazonaws.com/code_challenge.json').then(result => result.json());
+    const allCandidates = await candidatesMethodsInBd.listAllCandidates();
 
-    response.status(200).send(allCandidatesAndJobs);
+    response.status(200).send(allCandidates);
 }
 
 export = listAllCandidates;
