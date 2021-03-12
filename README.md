@@ -19,12 +19,13 @@ Tecnologias utilizadas:
 Rotas Disponiveis:
 
 * '/' (Metodo GET) => responde somente com um status 200 e uma mensagem "Servidor Rodando";
-* '/api/attBdCandidates' (Metodo GET) => atualiza os dados dos candidados no banco de dados com base no endpoint;
+* '/api/attBdCandidatesAndFilters' (Metodo GET) => atualiza os dados dos candidados no banco de dados com base no endpoint;
 * '/api/listAll' (Metodo GET) => captura no "banco de dados" todos os jobs disponiveis os candidatos cadastrados na plataforma;
-* '/api/filtersAvailables' (Metodo GET) => captura todos os filtros de tecnologias, experiencias e localizacoes disponiveis;
-* '/api/filterCandidates' (Metodo POST) => faz um filtro de todos os candidatos conforme filtros passado no body(json), exemplo para filtro: {
-                "filtersTechnologies": [{"name": "React", "is_main_tech": true}, {"name": "Node.js", "is_main_tech": false}],
-                "filtersExperienceYears": ["3-4 years", "2-3 years"]
+* '/api/filtersAvailables' (Metodo GET) => captura todos os filtros de tecnologias, experiencias e localizações disponiveis;
+* '/api/filterCandidates' (Metodo POST) => faz um filtro dos candidatos conforme filtros passado no body(json), exemplo para filtro: {
+                "filtersTechnologies": ["React", "JavaScript"],
+                "filtersExperienceYears": ["3-4 years", "2-3 years"],
+                "filterLocalizations": ["Fortaleza - CE", "São Paulo - SP", "São José - SC"]
             };
             
 

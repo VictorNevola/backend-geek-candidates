@@ -7,7 +7,9 @@
     "include": [
       "src/**/*.ts"
     ],
-    "types": ["node"],
+    "types": [
+      "node"
+    ],
     "exclude": [
       "node_modules"
     ]
