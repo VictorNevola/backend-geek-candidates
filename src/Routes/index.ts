@@ -12,4 +12,4 @@ router.get('/api/listAll', listAllCandidates);
 router.get('/api/filtersAvailables', filtersAvailables);
 router.post('/api/filterCandidates', filterCandidates);
 
-export = router
+export default router;
