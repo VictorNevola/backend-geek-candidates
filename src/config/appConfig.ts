@@ -1,6 +1,6 @@
 import express, { urlencoded, json } from 'express';
 import cors from 'cors';
-import router from '../routes';
+import router from '../Routes';
 import mongoConnect from './dbConect';
 
 mongoConnect();
