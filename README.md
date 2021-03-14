@@ -1,6 +1,6 @@
 <h1> Backend geek candidatos </h1>
 
-<p> Esse projeto é uma simples aplicação backend, criado para reforçar conceitos e aprender novas tecnologias. </p>
+<p> Esse projeto é uma simples aplicação backend, criado manipular banco de Dados MongoDB. </p>
 
 <p>Link para acessar projeto: <a href="https://backend-geek-candidates.herokuapp.com/" target="_blank"> https://backend-geek-candidates.herokuapp.com/ </a> </p>
 
@@ -14,22 +14,23 @@ Tecnologias utilizadas:
 * Nodejs;
 * Typescript;
 * Express;
+* MongoDB;
 * Jest para test (TDD)
 
 Rotas Disponiveis:
 
 * '/' (Metodo GET) => responde somente com um status 200 e uma mensagem "Servidor Rodando";
 * '/api/attBdCandidatesAndFilters' (Metodo GET) => atualiza os dados dos candidados no banco de dados com base no endpoint;
-* '/api/listAll' (Metodo GET) => captura no "banco de dados" todos os jobs disponiveis os candidatos cadastrados na plataforma;
+* '/api/listAll' (Metodo GET) => captura no banco de dados os candidatos cadastrados;
 * '/api/filtersAvailables' (Metodo GET) => captura todos os filtros de tecnologias, experiencias e localizações disponiveis;
 * '/api/filterCandidates' (Metodo POST) => faz um filtro dos candidatos conforme filtros passado no body(json), exemplo para filtro: {
                 "filtersTechnologies": ["React", "JavaScript"],
-                "filtersExperienceYears": ["3-4 years", "2-3 years"],
+                "filtersExperienceMinNumber": 2,
                 "filterLocalizations": ["Fortaleza - CE", "São Paulo - SP", "São José - SC"]
             };
             
 
-Para testar Localmente e necessario ter mongodb Instalado na maquina:
+Para testar Localmente e necessario ter mongodb Instalado na maquina e rodando:
 
 * Versão do node utilizada: 14.15.1;
 * 1 - Baixe o Codigo;
