@@ -14,7 +14,7 @@ export default class Filters {
                 candidate.technologies.some(technologic => {
     
                     filtersTechnologies.push({
-                        name: technologic.name
+                        name: technologic.name.trim()
                     });
     
                 });
@@ -33,7 +33,7 @@ export default class Filters {
 
         await Promise.all(
             candidates.map(candidate => {
-                return filtersExperiences.push({ name: candidate.experience })
+                return filtersExperiences.push({ name: candidate.experience.trim() })
             })    
         );
 
@@ -49,7 +49,7 @@ export default class Filters {
         await Promise.all(
             candidates.map(candidate => {
                 if (candidate.city) {
-                    return filtersLocalization.push({ name: candidate.city })
+                    return filtersLocalization.push({ name: candidate.city.trim() })
                 }
             })
         );
