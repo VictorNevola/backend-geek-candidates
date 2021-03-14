@@ -9,6 +9,12 @@ describe('Teste para a rota de listar todos os candidatos e filtros', () => {
         expect(response.status).toEqual(200);
     });
 
+    test('Acessa a Rota para atualizar o banco de dados', async () => {
+        const response = await request(server).get('/api/attBdCandidatesAndFilters');
+        expect(response.status).toEqual(200);
+        expect(response.text).toEqual('Registros atualizados com sucesso')
+    });
+
     test('Acessa a rota /api/listAll e espera um array de objetos contendo as propiedades e seus respectivos tipos / id: number, city: string, experience: string, technologies: [{name: string, is_main_tech: string}]:', async () => {
         const response = await request(server).get('/api/listAll');
         expect(response.status).toEqual(200);

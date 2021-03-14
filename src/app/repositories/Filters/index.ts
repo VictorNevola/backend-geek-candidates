@@ -4,23 +4,16 @@ import { FilterTechModelSchema, FilterExpeModelSchema, FilterLocaModelSchema } f
 
 export default class Filters {
 
-    async createAllFiltersTechnologies(candidates: [candidates]): Promise<{ count: number, name: string }[]> {
+    async createAllFiltersTechnologies(candidates: [candidates]): Promise<{ name: string }[]> {
 
-        const filtersTechnologies: { count: number, name: string }[] = []
+        const filtersTechnologies: { name: string }[] = []
 
         await Promise.all(
             candidates.map(candidate => {
     
                 candidate.technologies.some(technologic => {
     
-                    const existInArray = filtersTechnologies.find(technologicInArray => technologicInArray.name === technologic.name)
-    
-                    if (existInArray) {
-                        return existInArray.count += 1;
-                    }
-    
                     filtersTechnologies.push({
-                        count: 1,
                         name: technologic.name
                     });
     
@@ -35,14 +28,12 @@ export default class Filters {
 
     }
 
-    async createAllFiltersExperiences(candidates: [candidates]): Promise<{ count: number, name: string }[]> {
-        const filtersExperiences: { count: number, name: string }[] = [];
+    async createAllFiltersExperiences(candidates: [candidates]): Promise<{ name: string }[]> {
+        const filtersExperiences: { name: string }[] = [];
 
         await Promise.all(
             candidates.map(candidate => {
-                const existInArray = filtersExperiences.find(experience => experience.name === candidate.experience);
-                if (existInArray) return existInArray.count += 1
-                return filtersExperiences.push({ count: 1, name: candidate.experience })
+                return filtersExperiences.push({ name: candidate.experience })
             })    
         );
 
@@ -51,16 +42,14 @@ export default class Filters {
             .catch(error => error)
     }
 
-    async createAllFiltersLocalizations(candidates: [candidates]): Promise<{ count: number, name: string }[]> {
+    async createAllFiltersLocalizations(candidates: [candidates]): Promise<{ name: string }[]> {
 
-        const filtersLocalization: { count: number, name: string }[] = [];
+        const filtersLocalization: { name: string }[] = [];
 
         await Promise.all(
             candidates.map(candidate => {
                 if (candidate.city) {
-                    const existInArray = filtersLocalization.find(location => location.name === candidate.city);
-                    if (existInArray) return existInArray.count += 1
-                    return filtersLocalization.push({ count: 1, name: candidate.city })
+                    return filtersLocalization.push({ name: candidate.city })
                 }
             })
         );

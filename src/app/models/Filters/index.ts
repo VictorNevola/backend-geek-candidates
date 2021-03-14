@@ -2,18 +2,15 @@ import { model, Schema } from 'mongoose';
 import { FiltersModelTypesDefault } from './types';
 
 const FiltersTechnologiesSchema: Schema = new Schema({
-    count: Number,
     name: { type: String, unique: true }
 
 });
 
 const FiltersExperiencesSchema: Schema = new Schema({
-    count: Number,
     name: { type: String, unique: true }
 });
 
 const FiltersLocalizationsSchema: Schema = new Schema({
-    count: Number,
     name: { type: String, unique: true }
 });
 
