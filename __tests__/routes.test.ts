@@ -45,7 +45,7 @@ describe('Teste para a rota de listar todos os candidatos e filtros', () => {
         const response = await request(server).post('/api/filterCandidates').send(
             {
                 "filtersTechnologies": ["React", "JavaScript"],
-                "filtersExperienceYears": ["3-4 years", "2-3 years"],
+                "filtersExperienceMinNumber": 2,
                 "filterLocalizations": ["Fortaleza - CE", "São Paulo - SP", "São José - SC"]
             }
         );

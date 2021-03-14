@@ -1,3 +1,4 @@
+import fetch from 'node-fetch';
 import { candidates } from '../../../typings/general';
 import { CandidateModelSchema } from '../../models/Candidates/';
 
@@ -5,6 +6,21 @@ import { CandidateModelSchema } from '../../models/Candidates/';
 export default class Candidates {
 
     async createAllCandidates(candidatesPayload: [candidates]): Promise<[candidates]> {
+
+        const randomUserInfos = await fetch('https://randomuser.me/api/?results=1000').then(result => result.json()).catch(error => error);
+
+        await Promise.all(candidatesPayload.map(async (candidate, index) => {
+            const experience = candidate.experience.split('years')[0].split('-');
+            const maxExperienceFormated = Number(experience[experience.length - 1].replace('+', ''));
+            const minExperienceFormated = Number(experience[0].replace("+", ""));
+            const {picture: {medium}} = randomUserInfos.results[index];
+            
+            candidate.photoUserUrl = medium;
+            candidate.maxExperienceNumber = maxExperienceFormated; 
+            candidate.minExperienceNumber = minExperienceFormated;
+
+        }));
+
         return CandidateModelSchema.insertMany(candidatesPayload, { ordered: false })
             .then(result => result)
             .catch(error => error)
@@ -16,17 +32,17 @@ export default class Candidates {
             .catch(error => error)
     }
 
-    async filterCandidates(filtersForTechnologic: string[], filterForExperiences: string[], filtersForlocalizations: string[]): Promise<[candidates]> {
+    async filterCandidates(filtersForTechnologic: string[], filterExperiencesMinValue: number, filtersForlocalizations: string[]) {
 
         const techFilters = filtersForTechnologic.length > 0 ? { "technologies.name": { $in: filtersForTechnologic } } : {};
-        const expeFilters = filterForExperiences.length > 0 ? { experience: { $in: filterForExperiences } } : {};
+        const expeFilters = filterExperiencesMinValue ? { maxExperienceNumber: {$gte: filterExperiencesMinValue} } : {};
         const locaFilters = filtersForlocalizations.length > 0 ? { city: { $in: filtersForlocalizations } } : {};
 
         return CandidateModelSchema.find(
             {
                 $and: [techFilters, expeFilters, locaFilters]
             }
-        ).sort({ experience: -1 }).collation({ locale: "pt", numericOrdering: true }).limit(5)
+        ).sort({ maxExperienceNumber: -1 }).limit(5)
             .then(result => result)
             .catch(error => error)
 

@@ -5,6 +5,9 @@ const CandidateSchema: Schema = new Schema({
     id: {type:Number, unique: true},
     city: String,
     experience: String,
+    maxExperienceNumber: Number,
+    minExperienceNumber: Number,
+    photoUserUrl: String,
     technologies: [{
         name: String,
         is_main_tech: Boolean

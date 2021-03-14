@@ -5,8 +5,8 @@ const candidatesMethodsInBd = new Candidates();
 
 const filterCandidates = async (request: Request, response: Response) => {
     const filtersTechnologies: string[] = request.body.filtersTechnologies || [];
-    const filtersExperienceYears: string[] = request.body.filtersExperienceYears || [];
     const filtersLocalizations: string[] = request.body.filterLocalizations || [];
+    const filtersExperienceYears: number = request.body.filtersExperienceMinNumber || 0;
 
     if (filtersTechnologies.length === 0) return response.status(406).send('Filtros não informados');
 
