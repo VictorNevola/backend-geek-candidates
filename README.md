@@ -5,7 +5,6 @@
 <p>Link para acessar projeto: <a href="https://backend-geek-candidates.herokuapp.com/" target="_blank"> https://backend-geek-candidates.herokuapp.com/ </a> </p>
 
 Recursos da aplicação:
-* Listar todos os candidatos;
 * Listar todos os filtros disponiveis (Tecnologias / Experiencias / Localizacao);
 * Filtrar os 5 melhores candidatos com base nos filtros;
 
